@@ -21,9 +21,7 @@ class UserController {
    */
   async index ({ request, response, view }) {
     const userExists = User.all();
-    console.log('Todos');
     return userExists;
-    // return response.json(userExists)
   }
 
   /**
@@ -51,7 +49,7 @@ class UserController {
       const data = request.all()
       const userExists = await User.findBy('email',data.email)//verificar si el usuario ya existe
       if(userExists){
-        return response.send({message:{erro:'User Existente'}})
+        return response.send({message:{erro:'The email: ' + data.email + ' alredy exist, please enter another email!.'}})
       }
       const newuserExists = await User.create(data)//Usuario creado
       
@@ -74,12 +72,11 @@ class UserController {
     try {
       const userExists = await User.findBy('id',params.id);
       if(userExists){
-        console.log('Existe');
+        //Existe
         return userExists;
       }
-      console.log('No existe');
-      // return userExists
-      return response.send({message:{error:'User no Existe'}})
+      //No Existe
+      return response.send({message:{error:'This user does not exist!.'}})
     } catch (error) {
       return response.send(error)
     }
@@ -115,7 +112,7 @@ class UserController {
         await userExists.save()
         return userExists;
       }
-      return response.send({message:{erro:'User  no Existente'}})
+      return response.send({message:{error:'This user does not exist!, please try again with an user that exist.'}})
     } catch (error) {
       return response.send(error)
     }
@@ -139,7 +136,7 @@ class UserController {
         await userExists.delete()
         return userExists
       }
-      return response.send({message:{error:'User no Existe'}})      
+      return response.send({message:{error:'This user does not exist!, please try again with an user that exist.'}})
     } catch (error) {
       return response.send(error)
     }
@@ -147,8 +144,8 @@ class UserController {
 
   async login({request,response,auth }){
     const data = request.all();
-    console.log(data)
     const token = await auth.attempt(data.email,data.password);
+    console.log("Email: " + data.email + " Token: " + token.token)
     return response.json(token);
   }
 }

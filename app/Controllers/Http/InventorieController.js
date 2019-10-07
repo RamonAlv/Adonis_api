@@ -71,7 +71,7 @@ class InventorieController {
       if(newInventorie){
         return newInventorie
       }
-      return response.send({message:{error:'Inventorie no Existe'}})
+      return response.send({message:{error:'Inventory does not exist!, please try again with an inventory that exist.'}})
     } catch (error) {
       return response.send(error)
     }
@@ -106,7 +106,7 @@ class InventorieController {
         await inventorieExists.save()
         return inventorieExists;
       }
-      return response.send({message:{erro:'inventorie  no Existente'}})
+      return response.send({message:{erro:'Inventory does not exist!, please try again with an inventory that exist.'}})
     } catch (error) {
       return response.send(error)
     }
@@ -127,7 +127,7 @@ class InventorieController {
         await newInventorie.delete()
         return newInventorie
       }
-      return response.send({message:{error:'Inventorie no Existe'}})
+      return response.send({message:{error:'Inventory does not exist!, please try again with an inventory that exist.'}})
     } catch (error) {
       return response.send(error)
     }

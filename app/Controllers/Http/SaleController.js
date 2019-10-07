@@ -59,7 +59,6 @@ class SaleController {
     const sale = new Sale();
     try {
       const data = request.all()
-      console.log("bien")
       const transaction = new Transaction()
       const inventory = await Inventory.findBy('product_id',data.product_id)
       console.log(inventory)
@@ -129,29 +128,28 @@ class SaleController {
     //const data = request.all()
     const user = await auth.getUser();
     if (user.rol == 1) {
-    const sale = await Sale.findBy('id',params.id)
-    console.log(sale)
-    if(sale){
-      var newQuantity
-      const transaction = new Transaction()
-      console.log(sale.product_id)
-      const inventory = await Inventory.findBy('product_id',sale.product_id)
-      console.log('bien')
-      newQuantity = inventory.quantity + sale.quantity;
-      sale.status = 'CANCEL'
-      inventory.quantity = newQuantity
-      transaction.quantity = sale.quantity
-      transaction.inventory_id = inventory.id
-      transaction.type = 3
-      transaction.description = "Add Cancel"
-      transaction.save();
-      inventory.save();
-      sale.save();
-      return response.json(sale);
+      const sale = await Sale.findBy('id',params.id)
+      if(sale){
+        console.log(sale)
+        var newQuantity
+        const transaction = new Transaction()
+        console.log(sale.product_id)
+        const inventory = await Inventory.findBy('product_id',sale.product_id)
+        newQuantity = inventory.quantity + sale.quantity;
+        sale.status = 'CANCEL'
+        inventory.quantity = newQuantity
+        transaction.quantity = sale.quantity
+        transaction.inventory_id = inventory.id
+        transaction.type = 3
+        transaction.description = "Add Cancel"
+        transaction.save();
+        inventory.save();
+        sale.save();
+        return response.json(sale);
+      }
+      return response.send({message:{status:'The sale you are trying to cancel does not exist'}})
     }
-    return response.send({message:{status:'No existe'}})
-    }
-    return response.send({message:{status:'No Auth'}})
+    return response.send({message:{status:'You need to be an administrator to make changes'}})
   }
 
   /**
@@ -171,8 +169,8 @@ class SaleController {
         return sale
       }
       return response.send({message:{status:'No successful'}})
-  
     }
+    return response.send({message:{status:'You need to be an administrator to make changes'}})
   }
 }
 

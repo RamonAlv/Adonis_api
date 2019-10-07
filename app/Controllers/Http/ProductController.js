@@ -81,7 +81,7 @@ class ProductController {
         await transaction.save();//create transaction
         return response.json(product);
       }
-      return response.send({message:{status:'NO Auth'}})
+      return response.send({message:{status:'You need to be an administrator to make changes'}})
 
     } catch (error) {
       return response.send(error)
@@ -102,7 +102,7 @@ class ProductController {
     if(productId){
       return productId
     }
-    return response.send({message:{status:'No successful'}})
+    return response.send({message:{status:'the product you are trying to find does not exist'}})
   }
 
   /**
@@ -134,7 +134,7 @@ class ProductController {
         await productExists.save()
         return productExists;
       }
-      return response.send({message:{erro:'product  no Existente'}})
+      return response.send({message:{erro:'The product you are trying to update does not exist!, please try again with another product'}})
     } catch (error) {
       return response.send(error)
     }
@@ -156,7 +156,7 @@ class ProductController {
         await productId.delete()
         return productId
       }
-      return response.send({message:{status:'No successful'}})
+      return response.send({message:{status:'The product you are trying to delete does not exist!, please try again with another product'}})
     }
     }
 }
