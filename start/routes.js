@@ -10,4 +10,4 @@ Route.resource('api/v1/transactions','TransactionController').apiOnly().middlewa
 Route.resource('api/v1/sales','SaleController').apiOnly().middleware('auth');
 /* --- Login Register No Auth --- */
 Route.post('api/v1/login','UserController.login');
-Route.post('api/v1/registre','UserController.store');
+Route.post('api/v1/register','UserController.store');
