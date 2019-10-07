@@ -20,7 +20,8 @@ class TransactionController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    const transactionAll = await Transaction.query()
+    const transactionAll = await Transaction
+    .query()
     .with('inventory')
     .fetch()
     return transactionAll;

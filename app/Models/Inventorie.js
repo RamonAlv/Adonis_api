@@ -5,6 +5,9 @@ const Model = use('Model')
 
 class Inventorie extends Model {
 
+    transaction(){
+        return this.hasMany('App/Models/Transaction')
+    }
     product(){
         return this.belongsTo('App/Models/Product') 
     }
@@ -13,9 +16,6 @@ class Inventorie extends Model {
         return this.belongsTo('App/Models/User')
     }
 
-    transaction(){
-        return this.hasMany('App/Models/Transaction')
-    }
 
 }
 

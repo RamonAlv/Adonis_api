@@ -69,6 +69,7 @@ class ProductController {
         // product.image = data.image
         //img upload
         const IMG = request.file('image')
+
         product.image = data.code+'-'+data.name+'.'+IMG.subtype
 
         await IMG.move(Helpers.publicPath('uploads/'+user.id), {
@@ -83,7 +84,7 @@ class ProductController {
         inventory.tax = data.tax
         await inventory.save();//create inventory
         //Transaction
-        transaction.inventory_id = inventory.id
+        transaction.inventorie_id = inventory.id
         transaction.type = 1
         transaction.description = "Add Producto"
         transaction.quantity = request.input('quantity')

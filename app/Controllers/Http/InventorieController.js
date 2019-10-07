@@ -8,7 +8,6 @@
  * Resourceful controller for interacting with inventories
  */
 const Inventorie = use('App/Models/Inventorie')
-const Transaction = use('App/Models/Transaction')
 
 class InventorieController {
   /**
@@ -20,8 +19,7 @@ class InventorieController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
-    // const inventorieExists = Inventorie.all()
+  async index ({ request, response, view }) {    
     const inventorieExists = await Inventorie
     .query()
     .with('product')
