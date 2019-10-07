@@ -65,7 +65,8 @@ class InventorieController {
   async show ({ params, request, response, view }) {
     try {
       // const data = request.all()
-      const newInventorie = await Inventorie.findBy('id',params.id)
+      const newInventorie = await Inventorie
+      .findBy('id',params.id)
       if(newInventorie){
         return newInventorie
       }

@@ -24,7 +24,10 @@ class SaleController {
    */
   async index ({ request, response, view }) {
     try {
-      const sale = await Sale.all();
+      const sale = await Sale.query()
+      .with('product')
+      .with('user')
+      .fetch()
       return sale;
     } catch (error) {
       return response.send(error);
@@ -67,7 +70,7 @@ class SaleController {
       inventory.quantity = newQuantity
       await inventory.save()
       //transaction
-      transaction.inventory_id = inventory.id
+      transaction.inventorie_id = inventory.id
       transaction.type = 2
       transaction.description = "Add sale"
       transaction.quantity = request.input('quantity')
@@ -102,6 +105,12 @@ class SaleController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    try {
+      const sale = await Sale.findBy('id',params.id)
+      return response.json(sale)
+    } catch (error) {
+      return response.send({message:{status:error}})
+    }
   }
 
   /**
