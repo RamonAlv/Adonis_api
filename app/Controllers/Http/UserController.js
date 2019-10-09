@@ -53,7 +53,7 @@ class UserController {
       }
       const newuserExists = await User.create(data)//Usuario creado
       
-      return response.status(201).send({message:{status:'SUCCESSFUL'}});
+      return response.status(201).send({message:{status:'SUCCESSFUL'}, data : newuserExists});
     } catch (error) {
       return response.send(error)
     }
@@ -144,9 +144,13 @@ class UserController {
 
   async login({request,response,auth }){
     const data = request.all();
+    const user = await User.findBy('email', data.email)
     const token = await auth.attempt(data.email,data.password);
-    console.log("Email: " + data.email + " Token: " + token.token)
-    return response.json(token);
+      if(user){
+        console.log("Email: " + data.email + " Token: " + token.token)
+        return response.send({token, user, status: 202})
+      }
+    return response.send({message:{error:'This user does not exist! or your password is incorrect, please try again.', status: 203}})
   }
 }
 
