@@ -70,11 +70,13 @@ class ProductController {
         //img upload
         const IMG = request.file('image')
 
-        product.image = data.code+'-'+data.name+'.'+IMG.subtype
+        product.image = data.name+'.'+IMG.subtype
 
-        await IMG.move(Helpers.publicPath('uploads/'+user.id), {
+        await IMG.move(Helpers.publicPath('uploads/'+data.code), {
           name: product.image
         })
+
+        product.image = '/uploads/'+ data.code +'/'+ product.image
         await product.save();
         //Inventory
         inventory.product_id = product.id

@@ -16,7 +16,6 @@ class Inventorie extends Model {
         return this.belongsTo('App/Models/User')
     }
 
-
 }
 
 module.exports = Inventorie

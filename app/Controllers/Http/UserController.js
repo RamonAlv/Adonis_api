@@ -146,10 +146,10 @@ class UserController {
     const data = request.all();
     const user = await User.findBy('email', data.email)
     const token = await auth.attempt(data.email,data.password);
-      if(user){
-        console.log("Email: " + data.email + " Token: " + token.token)
-        return response.send({token, user, status: 202})
-      }
+    if(user){
+      console.log("Email: " + data.email + " Token: " + token.token)
+      return response.send({token, user, status: 202})
+    }
     return response.send({message:{error:'This user does not exist! or your password is incorrect, please try again.', status: 203}})
   }
 }

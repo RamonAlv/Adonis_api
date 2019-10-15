@@ -24,7 +24,6 @@ class InventorieController {
     .query()
     .with('product')
     .with('user')
-    // .with('transaction')
     .fetch()
     return inventorieExists;
   }
