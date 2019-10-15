@@ -136,7 +136,7 @@ class UserController {
         await userExists.delete()
         return userExists
       }
-      return response.send({message:{error:'This user does not exist!, please try again with an user that exist.'}})
+      return response.send({message:{error:'This user does not exist!, please try again with an user that exist.', status:202}})
     } catch (error) {
       return response.send(error)
     }

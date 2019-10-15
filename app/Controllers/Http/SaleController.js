@@ -107,7 +107,8 @@ class SaleController {
   async show ({ params, request, response, view }) {
     try {
       const sale = await Sale.findBy('id',params.id)
-      return response.json(sale)
+      // return response.json(sale)
+      return response.send({sale, status: 202})
     } catch (error) {
       return response.send({message:{status:error}})
     }
@@ -154,7 +155,8 @@ class SaleController {
         transaction.save();
         inventory.save();
         sale.save();
-        return response.json(sale);
+        // return response.json(sale);
+        return response.send({sale, status: 202})
       }
       return response.send({message:{status:'The sale you are trying to cancel does not exist'}})
     }
@@ -176,6 +178,7 @@ class SaleController {
       if(sale){
         await sale.delete()
         return sale
+        return response.send({sale, status: 202})
       }
       return response.send({message:{status:'No successful'}})
     }

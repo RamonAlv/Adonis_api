@@ -91,9 +91,9 @@ class ProductController {
         transaction.description = "Add Producto"
         transaction.quantity = request.input('quantity')
         await transaction.save();//create transaction
-        return response.send({product, status: 202})
+        return response.send({product, status: 201})
       }
-      return response.send({message:{status:'You need to be an administrator to make changes'}})
+      return response.send({message:{message:'You need to be an administrator to make changes' , status:203}})
 
     } catch (error) {
       return response.send(error)
@@ -114,7 +114,7 @@ class ProductController {
     if(productId){
       return productId
     }
-    return response.send({message:{status:'the product you are trying to find does not exist'}})
+    return response.send({message:{message:'the product you are trying to find does not exist'  ,status:203}})
   }
 
   /**
@@ -144,9 +144,11 @@ class ProductController {
       if(productExists){
         productExists.merge(data)
         await productExists.save()
-        return productExists;
+        // return productExists;
+        return response.send({productExists, status: 202})
       }
-      return response.send({message:{erro:'The product you are trying to update does not exist!, please try again with another product'}})
+      return response.send({
+        message:{erro:'The product you are trying to update does not exist!, please try again with another product', status:203}})
     } catch (error) {
       return response.send(error)
     }

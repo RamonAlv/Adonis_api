@@ -67,9 +67,10 @@ class InventorieController {
       const newInventorie = await Inventorie
       .findBy('id',params.id)
       if(newInventorie){
-        return newInventorie
+        // return newInventorie
+        return response.send({newInventorie, status: 202})
       }
-      return response.send({message:{error:'Inventory does not exist!, please try again with an inventory that exist.'}})
+      return response.send({message:{error:'Inventory does not exist!, please try again with an inventory that exist.', status:203}})
     } catch (error) {
       return response.send(error)
     }
@@ -102,9 +103,10 @@ class InventorieController {
       if(inventorieExists){
         inventorieExists.merge(data)
         await inventorieExists.save()
-        return inventorieExists;
+        // return inventorieExists;
+        return response.send({inventorieExists, status: 202})
       }
-      return response.send({message:{erro:'Inventory does not exist!, please try again with an inventory that exist.'}})
+      return response.send({message:{erro:'Inventory does not exist!, please try again with an inventory that exist.', status: 203}})
     } catch (error) {
       return response.send(error)
     }
@@ -125,7 +127,7 @@ class InventorieController {
         await newInventorie.delete()
         return newInventorie
       }
-      return response.send({message:{error:'Inventory does not exist!, please try again with an inventory that exist.'}})
+      return response.send({message:{error:'Inventory does not exist!, please try again with an inventory that exist.', status:203}})
     } catch (error) {
       return response.send(error)
     }
