@@ -62,7 +62,8 @@ class TransactionController {
   async show ({ params, request, response, view }) {
     try {
       const transaction = await Transaction.findBy('id',params.id)
-      return transaction;
+      // return transaction;
+      return response.send({transaction, status: 202})
     } catch (error) {
       return response.send(error)
     }
