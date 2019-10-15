@@ -57,7 +57,7 @@ class ProductController {
         
         const newProduct = await Product.findBy('code',data.code);
         if (newProduct) {
-          return response.send({message:{status:'Existente'}})
+          return response.send({message:{error:'This product does exist!, please try again.', status: 203}})
         }
         const product = new Product()
         const inventory = new Inventorie()
@@ -91,7 +91,7 @@ class ProductController {
         transaction.description = "Add Producto"
         transaction.quantity = request.input('quantity')
         await transaction.save();//create transaction
-        return response.json(product);
+        return response.send({product, status: 202})
       }
       return response.send({message:{status:'You need to be an administrator to make changes'}})
 
