@@ -54,6 +54,7 @@ class ProductController {
       const user = await auth.getUser();
       if (user.rol == 1) {
         const data = request.all()
+        console.log(data.code);
         
         const newProduct = await Product.findBy('code',data.code);
         if (newProduct) {
@@ -64,6 +65,7 @@ class ProductController {
         const transaction = new Transaction()
         //product
         product.code = data.code
+        console.log(request.code);
         product.name = data.name
         product.description = data.description
         // product.image = data.image

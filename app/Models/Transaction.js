@@ -4,7 +4,6 @@
 const Model = use('Model')
 
 class Transaction extends Model {
-
     inventory(){
         return this.belongsTo('App/Models/Inventorie')
     }

@@ -11,6 +11,7 @@ class UserSchema extends Schema {
       table.string('email', 254).notNullable().unique()
       table.string('password', 60).notNullable()
       table.integer('rol').notNullable()
+      table.string('token_nav', 255).nullable()
       table.timestamps('created_at')
     })
   }
