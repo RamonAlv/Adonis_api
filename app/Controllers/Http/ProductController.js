@@ -25,7 +25,7 @@ class ProductController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    const productAll = Product.all()
+    const productAll = await Product.query().with('inventorie').fetch()
     return productAll;
   }
 
